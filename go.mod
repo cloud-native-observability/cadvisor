@@ -22,14 +22,14 @@ require (
 	github.com/moby/sys/mountinfo v0.6.2
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/runc v1.1.4
-	github.com/opencontainers/runtime-spec v1.0.3-0.20220909204839-494a5a6aca78
+	github.com/opencontainers/runtime-spec v1.1.0-rc.1
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.14.0
 	github.com/prometheus/client_model v0.3.0
 	github.com/prometheus/common v0.37.0
 	github.com/stretchr/testify v1.8.0
-	golang.org/x/net v0.7.0
-	golang.org/x/sys v0.5.0
+	golang.org/x/net v0.8.0
+	golang.org/x/sys v0.6.0
 	google.golang.org/grpc v1.51.0
 	k8s.io/klog/v2 v2.80.1
 	k8s.io/utils v0.0.0-20211116205334-6203023598ed
@@ -38,15 +38,15 @@ require (
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
-	github.com/checkpoint-restore/go-criu/v5 v5.3.0 // indirect
-	github.com/cilium/ebpf v0.7.0 // indirect
+	github.com/checkpoint-restore/go-criu/v6 v6.3.0 // indirect
+	github.com/cilium/ebpf v0.10.0 // indirect
 	github.com/containerd/console v1.0.3 // indirect
-	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
+	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/distribution v2.8.1+incompatible // indirect
 	github.com/go-logr/logr v1.2.0 // indirect
-	github.com/godbus/dbus/v5 v5.0.6 // indirect
+	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/uuid v1.1.2 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
@@ -55,20 +55,20 @@ require (
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/mrunalp/fileutils v0.5.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
-	github.com/opencontainers/selinux v1.10.0 // indirect
+	github.com/opencontainers/selinux v1.11.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
-	github.com/seccomp/libseccomp-golang v0.9.2-0.20220502022130-f33da4d89646 // indirect
-	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/seccomp/libseccomp-golang v0.10.0 // indirect
+	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/stretchr/objx v0.4.0 // indirect
 	github.com/syndtr/gocapability v0.0.0-20200815063812-42c35b437635 // indirect
 	github.com/vishvananda/netlink v1.1.0 // indirect
 	github.com/vishvananda/netns v0.0.0-20191106174202-0a2b9b5464df // indirect
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/genproto v0.0.0-20220502173005-c8bf987b8c21 // indirect
-	google.golang.org/protobuf v1.28.1 // indirect
+	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gotest.tools/v3 v3.0.2 // indirect
 )
 
-replace github.com/opencontainers/runc => ../runc
+replace github.com/opencontainers/runc => github.com/cloud-native-observability/runc v1.1.1-0.20230404070912-a95b2b13ac47

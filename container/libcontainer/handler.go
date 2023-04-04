@@ -769,16 +769,16 @@ func (h *Handler) GetProcesses() ([]int, error) {
 
 // Convert libcontainer cgroups.PSIData to info.PSIData
 func convertPSIData(from *cgroups.PSIData, to *info.PSIData) {
-	to.Avg10 = from.Avg10
-	to.Avg60 = from.Avg60
-	to.Avg300 = from.Avg300
-	to.Total = from.Total
+	to.Avg10 = *from.Avg10
+	to.Avg60 = *from.Avg60
+	to.Avg300 = *from.Avg300
+	to.Total = *from.Total
 }
 
 // Convert libcontainer cgroups.PSIStats to info.PSIStats
 func convertPSI(from *cgroups.PSIStats, to *info.PSIStats) {
-	convertPSIData(&from.Some, &to.Some)
-	convertPSIData(&from.Full, &to.Full)
+	convertPSIData(from.Some, &to.Some)
+	convertPSIData(from.Full, &to.Full)
 }
 
 // Convert libcontainer stats to info.ContainerStats.
@@ -790,7 +790,7 @@ func setCPUStats(s *cgroups.Stats, ret *info.ContainerStats, withPerCPU bool) {
 	ret.Cpu.CFS.ThrottledPeriods = s.CpuStats.ThrottlingData.ThrottledPeriods
 	ret.Cpu.CFS.ThrottledTime = s.CpuStats.ThrottlingData.ThrottledTime
 
-	convertPSI(&s.CpuStats.PSI, &ret.Cpu.PSI)
+	convertPSI(s.CpuStats.PSI, &ret.Cpu.PSI)
 
 	if !withPerCPU {
 		return
@@ -813,7 +813,7 @@ func setDiskIoStats(s *cgroups.Stats, ret *info.ContainerStats) {
 	ret.DiskIo.IoMerged = diskStatsCopy(s.BlkioStats.IoMergedRecursive)
 	ret.DiskIo.IoTime = diskStatsCopy(s.BlkioStats.IoTimeRecursive)
 
-	convertPSI(&s.BlkioStats.PSI, &ret.DiskIo.PSI)
+	convertPSI(s.BlkioStats.PSI, &ret.DiskIo.PSI)
 }
 
 func setMemoryStats(s *cgroups.Stats, ret *info.ContainerStats) {
@@ -821,7 +821,7 @@ func setMemoryStats(s *cgroups.Stats, ret *info.ContainerStats) {
 	ret.Memory.MaxUsage = s.MemoryStats.Usage.MaxUsage
 	ret.Memory.Failcnt = s.MemoryStats.Usage.Failcnt
 
-	convertPSI(&s.MemoryStats.PSI, &ret.Memory.PSI)
+	convertPSI(s.MemoryStats.PSI, &ret.Memory.PSI)
 
 	if cgroups.IsCgroup2UnifiedMode() {
 		ret.Memory.Cache = s.MemoryStats.Stats["file"]
