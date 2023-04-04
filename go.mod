@@ -70,3 +70,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gotest.tools/v3 v3.0.2 // indirect
 )
+
+replace github.com/opencontainers/runc => ../runc
