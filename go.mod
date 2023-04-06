@@ -71,4 +71,4 @@ require (
 	gotest.tools/v3 v3.0.2 // indirect
 )
 
-replace github.com/opencontainers/runc => github.com/cloud-native-observability/runc v1.1.1-0.20230404070912-a95b2b13ac47
+replace github.com/opencontainers/runc => github.com/cloud-native-observability/runc v1.1.1-0.20230406040234-bf8ef2105500
