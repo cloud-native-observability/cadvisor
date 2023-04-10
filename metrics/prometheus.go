@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/google/cadvisor/container"
@@ -1844,9 +1845,14 @@ func DefaultContainerLabels(container *info.ContainerInfo) map[string]string {
 // BaseContainerLabels returns a ContainerLabelsFunc that exports the container
 // name, first alias, image name as well as all its white listed env and label values.
 func BaseContainerLabels(whiteList []string) func(container *info.ContainerInfo) map[string]string {
-	whiteListMap := make(map[string]struct{}, len(whiteList))
+	whiteListMap := make(map[string]string, len(whiteList))
 	for _, k := range whiteList {
-		whiteListMap[k] = struct{}{}
+		split := strings.Split(k, "->")
+		if len(split) == 2 {
+			whiteListMap[split[0]] = split[1]
+		} else {
+			whiteListMap[split[0]] = ""
+		}
 	}
 
 	return func(container *info.ContainerInfo) map[string]string {
@@ -1854,16 +1860,33 @@ func BaseContainerLabels(whiteList []string) func(container *info.ContainerInfo)
 		if len(container.Aliases) > 0 {
 			set[LabelName] = container.Aliases[0]
 		}
-		if image := container.Spec.Image; len(image) > 0 {
-			set[LabelImage] = image
+		if label, ok := whiteListMap[LabelImage]; ok {
+			if image := container.Spec.Image; len(image) > 0 {
+				if len(label) > 0 {
+					set[label] = image
+				} else {
+
+					set[LabelImage] = image
+				}
+			}
 		}
 		for k, v := range container.Spec.Labels {
-			if _, ok := whiteListMap[k]; ok {
-				set[ContainerLabelPrefix+k] = v
+			if label, ok := whiteListMap[k]; ok {
+				if len(label) > 0 {
+					set[label] = v
+				} else {
+					set[ContainerLabelPrefix+k] = v
+				}
 			}
 		}
 		for k, v := range container.Spec.Envs {
-			set[ContainerEnvPrefix+k] = v
+			if label, ok := whiteListMap[k]; ok {
+				if len(label) > 0 {
+					set[label] = v
+				} else {
+					set[ContainerEnvPrefix+k] = v
+				}
+			}
 		}
 		return set
 	}
